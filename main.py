@@ -2,7 +2,8 @@ import sys
 import pygame
 import config
 import numpy as np
-
+import GameOfLife
+import time
 # Initialize Pygame
 pygame.init()
 
@@ -11,7 +12,7 @@ screen = pygame.display.set_mode(config.SCREEN_DIMS)
 pygame.display.set_caption("Conway's Game of Life")
 
 
-grid = np.zeros((config.GRID_DIMS[0], config.GRID_DIMS[1],3))
+grid = np.zeros((config.GRID_DIMS[0], config.GRID_DIMS[1],3)).astype(np.uint8)
 simulating = False
 
 def draw_grid():
@@ -32,8 +33,8 @@ def draw():
 
 def add_point(x,y):
     global grid
-    center_col = x // config.CELL_SIZE[0]
-    center_row = y // config.CELL_SIZE[1]
+    center_row = y // config.CELL_SIZE[0]
+    center_col = x // config.CELL_SIZE[1]
     grid[center_row][center_col] = np.array(config.WHITE)
 
 def handle_event(event):
@@ -65,11 +66,10 @@ while running:
     draw()
 
     if(simulating):
-        print("simulating")
+        grid = GameOfLife.next_gen(grid)
+        # simulating = False
 
     clock.tick(60)
-
-
 
 
 pygame.quit()
