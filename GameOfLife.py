@@ -2,6 +2,11 @@ import numpy as np
 import config
 
 def next_gen(grid: np.ndarray):
+    """
+    Creates the new generation of the Game Of Life from the previous grid
+    Args:
+        grid (np.ndarray): previous generation GOL
+    """
     new_grid = np.zeros_like(grid)
     grid = grid[:,:,config.CHECK_AXIS]
     grid[grid==255] = 1

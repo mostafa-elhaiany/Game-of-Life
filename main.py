@@ -26,10 +26,8 @@ def draw_grid():
 def draw():
      # Fill screen with black
     screen.fill(config.BLACK)
-
     # draw grid        
     draw_grid()
-
     # Update display
     pygame.display.flip()
 
@@ -55,7 +53,6 @@ def handle_event(event):
         elif event.key == pygame.K_SPACE:
             simulating = not simulating
 
-
 running = True
 clock = pygame.time.Clock()
 while running:
@@ -64,15 +61,9 @@ while running:
             running = False
         else:
             handle_event(event)
-    
     draw()
-
     if(simulating):
         grid = GameOfLife.next_gen(grid)
-        # simulating = False
-
     clock.tick(60)
-
-
 pygame.quit()
 sys.exit()
