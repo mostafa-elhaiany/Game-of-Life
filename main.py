@@ -12,7 +12,7 @@ pygame.display.set_caption("Conway's Game of Life")
 
 
 grid = np.zeros((config.GRID_DIMS[0], config.GRID_DIMS[1],3))
-
+simulating = False
 
 def draw_grid():
     for r_idx, r in enumerate(grid):
@@ -40,13 +40,20 @@ def handle_event(event):
     """
     handling clicks and drags
     """
+    global grid, simulating
     if event.type == pygame.MOUSEBUTTONDOWN:
         y, x = event.pos
         add_point(x,y)
+    elif event.type == pygame.KEYDOWN:
+        if event.key == pygame.K_r:
+            mapping = np.random.random((config.GRID_DIMS[0], config.GRID_DIMS[1]))
+            grid = np.zeros((config.GRID_DIMS[0], config.GRID_DIMS[1],3))
+            grid[mapping>0.7] = np.array(config.WHITE)
+        elif event.key == pygame.K_SPACE:
+            simulating = not simulating
 
 
 running = True
-simulating = False
 clock = pygame.time.Clock()
 while running:
     for event in pygame.event.get():
@@ -56,6 +63,9 @@ while running:
             handle_event(event)
     
     draw()
+
+    if(simulating):
+        print("simulating")
 
     clock.tick(60)
 
