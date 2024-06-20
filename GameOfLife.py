@@ -3,7 +3,7 @@ import config
 
 def next_gen(grid: np.ndarray):
     new_grid = np.zeros_like(grid)
-    grid = grid[:,:,0]
+    grid = grid[:,:,config.CHECK_AXIS]
     grid[grid==255] = 1
     grid = np.pad(grid, 1,constant_values=(0))
     H, W, _ = new_grid.shape
@@ -15,8 +15,10 @@ def next_gen(grid: np.ndarray):
             exists = grid[padded_i,padded_j] == 1
             num_elements = np.sum(neighborhood) - grid[padded_i,padded_j]
             if(not exists and num_elements==3): # A cell is born if it has exactly three neighbours, 
-                new_grid[i,j] = config.WHITE            
+                new_grid[i,j] = config.BORN           
             elif(exists and 2<=num_elements<=3):# survives if it has two or three living neighbours, 
-                new_grid[i,j] = config.WHITE
+                new_grid[i,j] = config.SURVIVED
+            elif(exists and not 2<=num_elements<=3):# survives if it has two or three living neighbours, 
+                new_grid[i,j] = config.DIED
             # and dies otherwise
     return new_grid

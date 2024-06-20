@@ -1,6 +1,8 @@
 CELL_SIZE = (5, 5)  # Width and height of each cell
 GRID_DIMS = (200, 100) # number of cells (rows, columns)
 
+#visualization
+AS_CIRCLES = True
 
 # Calculate screen dimensions
 SCREEN_WIDTH = CELL_SIZE[0] * GRID_DIMS[0]
@@ -10,3 +12,10 @@ SCREEN_DIMS = (SCREEN_WIDTH, SCREEN_HEIGHT)
 # Colors
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
+
+
+############# if these change remember to change the check condition in GAMEOfLife.py ###############
+CHECK_AXIS = 1 # this is the axis in the numbers below that is always 255 when the cell is moving to next gen
+DIED = (255,0,0) # axis 1 is 0 when dead
+SURVIVED = (255,255,0) # axis 1 is 255 because cell is alive
+BORN = (0,255,0) # axis 1 is 255 because cell is alive

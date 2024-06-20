@@ -3,7 +3,7 @@ import pygame
 import config
 import numpy as np
 import GameOfLife
-import time
+
 # Initialize Pygame
 pygame.init()
 
@@ -11,15 +11,17 @@ pygame.init()
 screen = pygame.display.set_mode(config.SCREEN_DIMS)
 pygame.display.set_caption("Conway's Game of Life")
 
-
 grid = np.zeros((config.GRID_DIMS[0], config.GRID_DIMS[1],3)).astype(np.uint8)
 simulating = False
 
 def draw_grid():
     for r_idx, r in enumerate(grid):
         for c_idx, c in enumerate(r):
-            rect = pygame.Rect(r_idx * config.CELL_SIZE[0], c_idx * config.CELL_SIZE[1], config.CELL_SIZE[0], config.CELL_SIZE[1])
-            pygame.draw.rect(screen, c, rect)
+            if(config.AS_CIRCLES):
+                pygame.draw.circle(screen, c, (r_idx * config.CELL_SIZE[0], c_idx * config.CELL_SIZE[1]), config.CELL_SIZE[0]//2)
+            else:
+                rect = pygame.Rect(r_idx * config.CELL_SIZE[0], c_idx * config.CELL_SIZE[1], config.CELL_SIZE[0], config.CELL_SIZE[1])
+                pygame.draw.rect(screen, c, rect)
 
 def draw():
      # Fill screen with black
